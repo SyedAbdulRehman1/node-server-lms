@@ -24,7 +24,6 @@ import {
 const appRouter = express.Router();
 
 appRouter.get("/", getHelloHandler);
-appRouter.get("/", getHelloHandler);
 appRouter.post("/register", registerHandler);
 appRouter.post("/login", loginHandler);
 appRouter.get("/auth/activate/:token", activateAccountHandler);
