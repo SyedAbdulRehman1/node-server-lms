@@ -8,7 +8,6 @@ export const getCategoriesAndCourses = async (
   res: Response
 ): Promise<void> => {
   const userId: any = req.user;
-  console.log(userId, "djdjdjd");
   const userId1 = userId?.id;
 
   if (!userId1) {
