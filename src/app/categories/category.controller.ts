@@ -1,3 +1,57 @@
+/**
+ * @swagger
+ * /categories-and-courses:
+ *   get:
+ *     summary: Get categories and courses
+ *     tags: [Categories]
+ *     security:
+ *       - BearerAuth: [] # Assuming you're using JWT authentication
+ *     parameters:
+ *       - in: query
+ *         name: title
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Filter courses by title
+ *       - in: query
+ *         name: categoryId
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Filter courses by category ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved categories and courses
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 categories:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       name:
+ *                         type: string
+ *                 courses:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       title:
+ *                         type: string
+ *                       categoryId:
+ *                         type: string
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal Server Error
+ */
 import { Request, Response } from "express";
 import { CategoryService } from "./category.service";
 

@@ -4,18 +4,21 @@ import dotenv from "dotenv";
 import appModule from "./app/app.module";
 import { configurePassport } from "./app/auth/strategies/jwtStrategy";
 import passport from "passport";
-// import appModule from "./app/app.module";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocs from "./swagger";
+import swaggerSpec from "./swagger";
+// import OASDescription from "./swagger";
 
 dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(cors());
-app.use(express.json());
-configurePassport(passport);
-app.use(passport.initialize());
 
+app.use(express.json());
+// configurePassport(passport);
+// app.use(passport.initialize());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Routes
 app.use("/", appModule);
 

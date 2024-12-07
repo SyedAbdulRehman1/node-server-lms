@@ -31,6 +31,7 @@ import {
   updateChapter,
 } from "./chapters/chapters.controller";
 import { upload } from "../services/multer";
+import swaggerSpec from "../swagger";
 
 const appRouter = express.Router();
 
@@ -55,6 +56,9 @@ appRouter.post(
   passport.authenticate("jwt", { session: false }),
   createCourseHandler
 );
+appRouter.get("/swagger.json", (req, res) => {
+  res.json(swaggerSpec);
+});
 
 appRouter.get(
   "/courses",

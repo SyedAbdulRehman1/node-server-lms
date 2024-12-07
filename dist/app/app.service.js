@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getHello = void 0;
 const getHello = () => {
-  return `
+    return `
       <html>
       <head><title>Our Project</title></head>
       <body>

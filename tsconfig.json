@@ -10,5 +10,5 @@
     "strictPropertyInitialization": false,
     "typeRoots": ["./node_modules/@types", "/types.d.ts"]
   },
-  "include": ["src/**/*", "/types.d.ts"] // Include root-level file
+  "include": ["src/**/*", "/types.d.ts", "src/swagger.ts"] // Include root-level file
 }

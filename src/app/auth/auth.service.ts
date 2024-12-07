@@ -74,7 +74,6 @@ export class AuthService {
       id: user.id,
       name: user.name,
       emailVerified: user.emailVerified,
-      image: user.image,
       email: user.email,
       userType: user.userType,
       role: user.role,
@@ -96,7 +95,7 @@ export class AuthService {
         return null;
       }
 
-      return { hasPassword: !!user.password };
+      return { hasPassword: !!user.password, ...user };
     } catch (error) {
       console.error("Error in getUserById service:", error);
       throw new Error("Server error"); // Throw error to be handled by the controller
