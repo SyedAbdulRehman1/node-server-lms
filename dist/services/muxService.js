@@ -26,18 +26,30 @@ const prisma = new client_1.PrismaClient();
  * Uploads a video to Mux and saves metadata to the database.
  */
 const uploadVideoToMux = (videoUrl, chapterId) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
+    var _a, _b, _c, _d;
     try {
         const asset = yield video.assets.create({
             input: [{ url: videoUrl }],
             playback_policy: ["public"],
             test: false,
         });
-        const muxData = yield prisma.muxData.create({
-            data: {
-                chapterId: chapterId,
+        // const muxData = await prisma.muxData.create({
+        //   data: {
+        //     chapterId: chapterId,
+        //     assetId: asset.id,
+        //     playbackId: asset.playback_ids?.[0]?.id,
+        //   },
+        // });
+        const muxData = yield prisma.muxData.upsert({
+            where: { chapterId },
+            update: {
                 assetId: asset.id,
                 playbackId: (_b = (_a = asset.playback_ids) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.id,
+            },
+            create: {
+                chapterId,
+                assetId: asset.id,
+                playbackId: (_d = (_c = asset.playback_ids) === null || _c === void 0 ? void 0 : _c[0]) === null || _d === void 0 ? void 0 : _d.id,
             },
         });
         return muxData;

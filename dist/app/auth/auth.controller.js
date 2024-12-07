@@ -35,7 +35,7 @@ const auth_service_1 = __importDefault(require("./auth.service"));
  *       201:
  *         description: User registered successfully
  *       400:
- *         description: Missing required fields
+ *         description: Invalid input
  */
 const registerHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -52,7 +52,41 @@ const registerHandler = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.registerHandler = registerHandler;
-// Login Handler
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Login a user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: user@example.com
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       400:
+ *         description: Missing email or password
+ *       401:
+ *         description: Invalid credentials
+ */
 const loginHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
@@ -68,6 +102,41 @@ const loginHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.loginHandler = loginHandler;
+/**
+ * @swagger
+ * /auth/user/{id}:
+ *   get:
+ *     summary: Get user by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *     responses:
+ *       200:
+ *         description: User data retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Server error
+ */
 const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.params.id;
     try {
@@ -84,6 +153,27 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getUserById = getUserById;
+/**
+ * @swagger
+ * /activate/{token}:
+ *   get:
+ *     summary: Activate user account
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Activation token
+ *     responses:
+ *       200:
+ *         description: Account activated successfully
+ *       400:
+ *         description: Token is required
+ *       500:
+ *         description: Server error
+ */
 const activateAccountHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { token } = req.params;
@@ -99,6 +189,56 @@ const activateAccountHandler = (req, res) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.activateAccountHandler = activateAccountHandler;
+/**
+ * @swagger
+ * /auth/user/:
+ *   put:
+ *     summary: Update user information
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 description: User ID
+ *               oldPassword:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               image:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *       400:
+ *         description: User ID is required
+ *       500:
+ *         description: Failed to update user
+ */
 const updateUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {

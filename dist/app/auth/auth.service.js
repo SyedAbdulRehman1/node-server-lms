@@ -63,7 +63,6 @@ class AuthService {
                 id: user.id,
                 name: user.name,
                 emailVerified: user.emailVerified,
-                image: user.image,
                 email: user.email,
                 userType: user.userType,
                 role: user.role,
@@ -83,7 +82,7 @@ class AuthService {
                 if (!user) {
                     return null;
                 }
-                return { hasPassword: !!user.password };
+                return Object.assign({ hasPassword: !!user.password }, user);
             }
             catch (error) {
                 console.error("Error in getUserById service:", error);

@@ -25,9 +25,21 @@ export const uploadVideoToMux = async (
       test: false,
     });
 
-    const muxData = await prisma.muxData.create({
-      data: {
-        chapterId: chapterId,
+    // const muxData = await prisma.muxData.create({
+    //   data: {
+    //     chapterId: chapterId,
+    //     assetId: asset.id,
+    //     playbackId: asset.playback_ids?.[0]?.id,
+    //   },
+    // });
+    const muxData = await prisma.muxData.upsert({
+      where: { chapterId },
+      update: {
+        assetId: asset.id,
+        playbackId: asset.playback_ids?.[0]?.id,
+      },
+      create: {
+        chapterId,
         assetId: asset.id,
         playbackId: asset.playback_ids?.[0]?.id,
       },

@@ -16,8 +16,8 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
-// configurePassport(passport);
-// app.use(passport.initialize());
+configurePassport(passport);
+app.use(passport.initialize());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Routes
 app.use("/", appModule);
