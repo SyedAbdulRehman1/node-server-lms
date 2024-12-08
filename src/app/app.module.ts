@@ -32,6 +32,12 @@ import {
 } from "./chapters/chapters.controller";
 import { upload } from "../services/multer";
 import swaggerSpec from "../swagger";
+import {
+  CreateChat,
+  DeleteChat,
+  GetChats,
+  UpdateChat,
+} from "./chat/chat.controller";
 
 const appRouter = express.Router();
 
@@ -145,6 +151,26 @@ appRouter.patch(
   "/courses/:courseId/chapters/:chapterId/unpublish",
   passport.authenticate("jwt", { session: false }),
   unpublishChapterHandler
+);
+appRouter.get(
+  "/chats",
+  passport.authenticate("jwt", { session: false }),
+  GetChats
+);
+appRouter.post(
+  "/chats",
+  passport.authenticate("jwt", { session: false }),
+  CreateChat
+);
+appRouter.put(
+  "/chats",
+  passport.authenticate("jwt", { session: false }),
+  UpdateChat
+);
+appRouter.delete(
+  "/chats",
+  passport.authenticate("jwt", { session: false }),
+  DeleteChat
 );
 
 appRouter.get(
