@@ -121,6 +121,32 @@ export class ChapterService {
 
     return chapter;
   }
+  async deleteChapter(courseId: string, chapterId: string) {
+    const course = await prisma.course.findUnique({
+      where: { id: courseId },
+    });
+
+    if (!course) {
+      throw new Error("Course not found");
+    }
+    const chapter = await prisma.chapter.findFirst({
+      where: {
+        id: chapterId,
+        courseId,
+      },
+    });
+
+    if (!chapter) {
+      throw new Error("Chapter not found in the specified course");
+    }
+
+    const deletedChapter = await prisma.chapter.delete({
+      where: { id: chapterId },
+    });
+
+    return deletedChapter;
+  }
+
   async publishChapter(courseId: string, chapterId: string, userId: string) {
     const course = await prisma.course.findUnique({
       where: {

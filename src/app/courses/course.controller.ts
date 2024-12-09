@@ -398,3 +398,23 @@ export const unpublishCourseHandler = async (
     });
   }
 };
+
+export const deleteCourse = async (req: Request, res: Response) => {
+  try {
+    const courseId = req.params.id;
+
+    if (!courseId) {
+      throw "Course ID is required";
+    }
+
+    await courseService.deleteCourse(courseId);
+
+    res.status(200).json({ message: "Course deleted successfully" });
+  } catch (error: any) {
+    console.error("[DELETE_COURSE_ERROR]", error);
+    res.status(500).json({
+      message: "Failed to delete course",
+      error: error.message || error,
+    });
+  }
+};

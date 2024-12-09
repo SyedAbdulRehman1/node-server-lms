@@ -12,6 +12,7 @@ import { getCategoriesAndCourses } from "./categories/category.controller";
 import {
   createChapterHandler,
   createCourseHandler,
+  deleteCourse,
   getChapterHandler,
   getCourseDetails,
   GetCourses,
@@ -24,6 +25,7 @@ import {
 } from "./courses/course.controller";
 import { checkPurchase } from "./purchases/purchases.controller";
 import {
+  deleteChapter,
   getChapter,
   getChapterData,
   publishChapterHandler,
@@ -40,28 +42,16 @@ import {
 } from "./chat/chat.controller";
 
 const appRouter = express.Router();
-
+appRouter.use(passport.authenticate("jwt", { session: false }));
 appRouter.get("/", getHelloHandler);
 appRouter.post("/register", registerHandler);
 appRouter.post("/login", loginHandler);
 appRouter.get("/auth/user/:id", getUserById);
-appRouter.put(
-  "/auth/user",
-  passport.authenticate("jwt", { session: false }),
-  updateUserController
-);
+appRouter.put("/auth/user", updateUserController);
 
 appRouter.get("/auth/activate/:token", activateAccountHandler);
-appRouter.get(
-  "/categories-and-courses",
-  passport.authenticate("jwt", { session: false }),
-  getCategoriesAndCourses
-);
-appRouter.post(
-  "/courses",
-  passport.authenticate("jwt", { session: false }),
-  createCourseHandler
-);
+appRouter.get("/categories-and-courses", getCategoriesAndCourses);
+appRouter.post("/courses", createCourseHandler);
 appRouter.get("/swagger.json", (req, res) => {
   res.json(swaggerSpec);
 });
@@ -71,26 +61,10 @@ appRouter.get(
   passport.authenticate("jwt", { session: false }),
   GetCourses
 );
-appRouter.get(
-  "/courses/:courseId",
-  passport.authenticate("jwt", { session: false }),
-  getCourseDetails
-);
-appRouter.get(
-  "/courses/course-with-progress/:courseId",
-  passport.authenticate("jwt", { session: false }),
-  GetCourseWithProgress
-);
-appRouter.get(
-  "/courses/courseUnique/:courseId",
-  passport.authenticate("jwt", { session: false }),
-  getUniqueCourse
-);
-appRouter.get(
-  "/chapters/:courseId/chapters/:chapterId",
-  passport.authenticate("jwt", { session: false }),
-  getChapterHandler
-);
+appRouter.get("/courses/:courseId", getCourseDetails);
+appRouter.get("/courses/course-with-progress/:courseId", GetCourseWithProgress);
+appRouter.get("/courses/courseUnique/:courseId", getUniqueCourse);
+appRouter.get("/chapters/:courseId/chapters/:chapterId", getChapterHandler);
 
 appRouter.post(
   "/courses/:courseId/upload",
@@ -98,80 +72,32 @@ appRouter.post(
   upload.single("file"),
   uploadFile
 );
-appRouter.post(
-  "/courses/:courseId/chapters",
-  passport.authenticate("jwt", { session: false }),
-  createChapterHandler
-);
+appRouter.post("/courses/:courseId/chapters", createChapterHandler);
 
-appRouter.get(
-  "/purchases",
-  passport.authenticate("jwt", { session: false }),
-  checkPurchase
-);
+appRouter.get("/purchases", checkPurchase);
 
-appRouter.get(
-  "/:courseId/chapters/:chapterId",
-  passport.authenticate("jwt", { session: false }),
-  getChapter
-);
-appRouter.get(
-  "/chapters/get-chapter",
-  passport.authenticate("jwt", { session: false }),
-  getChapterData
-);
-appRouter.patch(
-  "/courses/:courseId",
-  passport.authenticate("jwt", { session: false }),
-  updateCourse
-);
+appRouter.get("/:courseId/chapters/:chapterId", getChapter);
+appRouter.get("/chapters/get-chapter", getChapterData);
+appRouter.patch("/courses/:courseId", updateCourse);
 
-appRouter.patch(
-  "/courses/:courseId/chapters/:chapterId",
-  passport.authenticate("jwt", { session: false }),
-  updateChapter
-);
+appRouter.patch("/courses/:courseId/chapters/:chapterId", updateChapter);
 appRouter.patch(
   "/courses/:courseId/chapters/:chapterId/publish",
-  passport.authenticate("jwt", { session: false }),
   publishChapterHandler
 );
-appRouter.patch(
-  "/courses/:id/publish",
-  passport.authenticate("jwt", { session: false }),
-  publishCourseHandler
-);
-appRouter.patch(
-  "/courses/:id/unpublish",
-  passport.authenticate("jwt", { session: false }),
-  unpublishCourseHandler
-);
+appRouter.patch("/courses/:id/publish", publishCourseHandler);
+appRouter.patch("/courses/:id/unpublish", unpublishCourseHandler);
 
 appRouter.patch(
   "/courses/:courseId/chapters/:chapterId/unpublish",
-  passport.authenticate("jwt", { session: false }),
   unpublishChapterHandler
 );
-appRouter.get(
-  "/chats",
-  passport.authenticate("jwt", { session: false }),
-  GetChats
-);
-appRouter.post(
-  "/chats",
-  passport.authenticate("jwt", { session: false }),
-  CreateChat
-);
-appRouter.put(
-  "/chats",
-  passport.authenticate("jwt", { session: false }),
-  UpdateChat
-);
-appRouter.delete(
-  "/chats",
-  passport.authenticate("jwt", { session: false }),
-  DeleteChat
-);
+appRouter.get("/chats", GetChats);
+appRouter.post("/chats", CreateChat);
+appRouter.put("/chats", UpdateChat);
+appRouter.delete("/chats", DeleteChat);
+appRouter.delete("/courses/:id", deleteCourse);
+appRouter.delete("/courses/:courseId/chapters/:chapterId", deleteChapter);
 
 appRouter.get(
   "/protected",

@@ -307,7 +307,6 @@ export class CourseService {
   }
   async unpublishCourse(courseId: string, userId: string) {
     try {
-      // Verify if the user owns the course
       const course = await this.prisma.course.findFirst({
         where: {
           id: courseId,
@@ -333,5 +332,14 @@ export class CourseService {
       console.error("[UNPUBLISH_COURSE_ERROR]", error);
       throw new Error("Failed to unpublish course");
     }
+  }
+  async deleteCourse(courseId: string) {
+    if (!courseId) {
+      throw new Error("Course ID is required");
+    }
+
+    return await this.prisma.course.delete({
+      where: { id: courseId },
+    });
   }
 }

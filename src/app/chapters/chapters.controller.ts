@@ -129,6 +129,31 @@ export const publishChapterHandler = async (
     res.status(error.status || 400).json({ message: error.message });
   }
 };
+export const deleteChapter = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { courseId, chapterId } = req.params;
+
+    if (!courseId || !chapterId) {
+      throw "Course ID and Chapter ID are required";
+    }
+
+    const deletedChapter = await chapterService.deleteChapter(
+      courseId,
+      chapterId
+    );
+
+    res.status(200).json({
+      message: "Chapter deleted successfully",
+      chapter: deletedChapter,
+    });
+  } catch (error: any) {
+    console.error("[DELETE_CHAPTER_ERROR]", error);
+    throw new Error("Failed to delete chapter");
+  }
+};
 
 export const unpublishChapterHandler = async (
   req: Request,
