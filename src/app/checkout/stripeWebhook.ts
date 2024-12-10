@@ -1,13 +1,10 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
-import Stripe from "stripe";
-// import { stripe } from "./stripe";
+import { stripe } from "./stripe"; // Your Stripe instance
 
 const prisma = new PrismaClient();
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-11-20.acacia",
-});
+
 export const stripeWebhook = async (req: Request, res: Response) => {
   const sig = req.headers["stripe-signature"];
   let event;
