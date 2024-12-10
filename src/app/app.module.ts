@@ -44,8 +44,15 @@ import { checkoutCourse } from "./checkout/checkoutController";
 import { stripeWebhook } from "./checkout/stripeWebhook";
 
 const appRouter = express.Router();
-appRouter.use(passport.authenticate("jwt", { session: false }));
 appRouter.get("/", getHelloHandler);
+
+appRouter.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook
+);
+
+appRouter.use(passport.authenticate("jwt", { session: false }));
 appRouter.post("/register", registerHandler);
 appRouter.post("/login", loginHandler);
 appRouter.get("/auth/user/:id", getUserById);
@@ -76,11 +83,6 @@ appRouter.post(
 );
 
 appRouter.post("/courses/:courseId/checkout", checkoutCourse);
-appRouter.post(
-  "/webhook",
-  express.raw({ type: "application/json" }),
-  stripeWebhook
-);
 
 appRouter.post("/courses/:courseId/chapters", createChapterHandler);
 
