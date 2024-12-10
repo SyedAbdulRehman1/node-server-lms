@@ -40,6 +40,8 @@ import {
   GetChats,
   UpdateChat,
 } from "./chat/chat.controller";
+import { checkoutCourse } from "./checkout/checkoutController";
+import { stripeWebhook } from "./checkout/stripeWebhook";
 
 const appRouter = express.Router();
 appRouter.use(passport.authenticate("jwt", { session: false }));
@@ -72,6 +74,14 @@ appRouter.post(
   upload.single("file"),
   uploadFile
 );
+
+appRouter.post("/courses/:courseId/checkout", checkoutCourse);
+appRouter.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook
+);
+
 appRouter.post("/courses/:courseId/chapters", createChapterHandler);
 
 appRouter.get("/purchases", checkPurchase);
