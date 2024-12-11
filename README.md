@@ -1,4 +1,4 @@
-# Node Server README
+# Node Server
 
 ## Project Overview
 This Node.js server serves as the backend for managing API requests, handling database operations, and ensuring secure authentication.
