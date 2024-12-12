@@ -1,0 +1,21 @@
+### Root 
+GET http://localhost:8003/
+Content-Type: application/json
+
+### Register User
+POST http://localhost:8003/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "securePassword123"
+}
+
+### Login User
+POST http://localhost:8003/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "Hello123"
+}
