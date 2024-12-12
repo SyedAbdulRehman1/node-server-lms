@@ -1,20 +1,24 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { stripe } from "./stripe"; // Your Stripe instance
+import Stripe from "stripe";
 
 const prisma = new PrismaClient();
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+// let event: Stripe.Event;
 
 export const stripeWebhook = async (req: Request, res: Response) => {
   const sig = req.headers["stripe-signature"];
-  let event;
+  let event: Stripe.Event;
+  // const session = event.data.object as Stripe.Checkout.Session;
 
   try {
+    // event =
     event = stripe.webhooks.constructEvent(req.body, sig!, endpointSecret!);
-
+    console.log(event, "ekdkd");
     switch (event.type) {
       case "checkout.session.completed":
-        const session = event.data.object;
+        const session = event.data.object as Stripe.Checkout.Session;
         const userId = session.metadata!.userId;
         const courseId = session.metadata!.courseId;
 
@@ -22,8 +26,8 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         const existingPurchase = await prisma.purchase.findUnique({
           where: {
             userId_courseId: {
-              userId,
               courseId,
+              userId,
             },
           },
         });
@@ -36,8 +40,8 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         // Create a new purchase record after successful payment
         await prisma.purchase.create({
           data: {
-            userId,
             courseId,
+            userId,
           },
         });
 

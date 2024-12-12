@@ -226,9 +226,9 @@ export const getUniqueCourse = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const userId: any = req.user; // Get the user ID from the authenticated user
+  const userId: any = req.user;
   const userId1 = userId?.id;
-  const courseId = req.params.courseId; // Get the courseId from the route parameters
+  const courseId = req.params.courseId;
 
   if (!userId1) {
     res.status(401).json({ message: "Unauthorized" }); // Return 401 if the user is not authenticated

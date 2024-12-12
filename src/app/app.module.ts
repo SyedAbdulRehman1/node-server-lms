@@ -42,6 +42,8 @@ import {
 } from "./chat/chat.controller";
 import { checkoutCourse } from "./checkout/checkoutController";
 import { stripeWebhook } from "./checkout/stripeWebhook";
+import { updateProgress } from "./progress/progressController";
+import { getDashboardCourses } from "./dashboard/dashboardController";
 
 const appRouter = express.Router();
 appRouter.get("/", getHelloHandler);
@@ -52,13 +54,14 @@ appRouter.post(
   stripeWebhook
 );
 
-appRouter.use(passport.authenticate("jwt", { session: false }));
 appRouter.post("/register", registerHandler);
 appRouter.post("/login", loginHandler);
 appRouter.get("/auth/user/:id", getUserById);
 appRouter.put("/auth/user", updateUserController);
 
 appRouter.get("/auth/activate/:token", activateAccountHandler);
+appRouter.use(passport.authenticate("jwt", { session: false }));
+appRouter.get("/dashboard/courses", getDashboardCourses);
 appRouter.get("/categories-and-courses", getCategoriesAndCourses);
 appRouter.post("/courses", createCourseHandler);
 appRouter.get("/swagger.json", (req, res) => {
@@ -110,6 +113,10 @@ appRouter.put("/chats", UpdateChat);
 appRouter.delete("/chats", DeleteChat);
 appRouter.delete("/courses/:id", deleteCourse);
 appRouter.delete("/courses/:courseId/chapters/:chapterId", deleteChapter);
+appRouter.put(
+  "/courses/:courseId/chapters/:chapterId/progress",
+  updateProgress
+);
 
 appRouter.get(
   "/protected",

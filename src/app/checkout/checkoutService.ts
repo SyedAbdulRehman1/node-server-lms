@@ -68,14 +68,38 @@ export class CheckoutService {
       customer: stripeCustomer.stripeCustomerId,
       line_items,
       mode: "payment",
-      success_url: `${process.env.FRONTEND_URL}/coursesResult/${course.id}?success=1`,
-      cancel_url: `${process.env.FRONTEND_URL}/coursesResult/${course.id}?canceled=1`,
+      success_url: `${process.env.FRONTEND_URL}/courses/${course.id}?success=1`,
+      cancel_url: `${process.env.FRONTEND_URL}/courses/${course.id}?canceled=1`,
       metadata: {
         courseId: course.id,
         userId,
       },
     });
+    console.log(session, "seccc");
+    const existingPurchase = await this.prisma.purchase.findUnique({
+      where: {
+        userId_courseId: {
+          courseId,
+          userId,
+        },
+      },
+    });
 
+    if (existingPurchase) {
+      console.log("Course already purchased");
+      throw "Course already purchased";
+    }
+
+    try {
+      await this.prisma.purchase.create({
+        data: {
+          courseId,
+          userId,
+        },
+      });
+    } catch (err) {
+      console.error("Error:", err);
+    }
     return session.url;
   }
 }

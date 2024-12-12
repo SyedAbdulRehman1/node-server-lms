@@ -117,17 +117,28 @@ export class CourseService {
   }
   async getCourseById(courseId: string, userId: string) {
     try {
+      console.log(courseId, "user", userId, "99999");
+      // const course = await this.prisma.course.findUnique({
+      //   where: {
+      //     id: courseId,
+      //     userId: userId,
+      //   },
+      //   include: {
+      //     chapters: {
+      //       where: { isPublished: true },
+      //       orderBy: { position: "asc" },
+      //     },
+      //   },
+      // });
       const course = await this.prisma.course.findUnique({
-        where: {
-          id: courseId,
-          userId: userId,
-        },
+        where: { id: courseId, isPublished: true },
         include: {
           chapters: {
             where: { isPublished: true },
             orderBy: { position: "asc" },
           },
         },
+        // select: { price: true },
       });
 
       if (!course) {
