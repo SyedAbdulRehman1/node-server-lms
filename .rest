@@ -59,7 +59,11 @@ Authorization: Bearer {{bearer}}
   "categoryId": "1234567890abcdef"
 }
 
-### Get Courses (Authenticated)
+### Get All Courses (Authenticated)
 GET {{APIURL}}courses
 Authorization: Bearer {{bearer}}
 Content-Type: application/json
+
+### Get Course Details using CourseId 
+GET {{APIURL}}courses/67540fa1a7fb2bb95e96083e
+Authorization: Bearer {{bearer}}

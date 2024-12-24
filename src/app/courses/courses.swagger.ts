@@ -155,7 +155,7 @@
  *                   example: "Internal server error message"
  */
 
-// get-couses
+// get-courses
 /**
  * @swagger
  * components:
@@ -227,4 +227,134 @@
  *                 message:
  *                   type: string
  *                   example: Internal Server Error
+ */
+
+// get-single-courses
+
+/**
+ * @swagger
+  * components:
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ * /courses/{courseId}:
+ *   get:
+ *     summary: Get details of a specific course
+ *     description: Retrieves the details of a course for an authenticated user.
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         description: The ID of the course to fetch.
+ *         schema:
+ *           type: string  
+ *           default: "67540fa1a7fb2bb95e96083e"  
+ *     tags: [Courses]    
+ *     security:
+ *       - BearerAuth: []  # Authentication via Bearer token (JWT)
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved the course details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "success"
+ *                 attachments:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   example: ["/path/to/file1", "/path/to/file2"]
+ *                 categoryId:
+ *                   type: string
+ *                   example: "1234"
+ *                 chapters:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         example: "chapter123"
+ *                       title:
+ *                         type: string
+ *                         example: "Chapter 1"
+ *                       description:
+ *                         type: string
+ *                         example: "<p>This is a course chapter description.</p>"
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2024-12-25T12:34:56Z"
+ *                 description:
+ *                   type: string
+ *                   example: "Detailed course description here"
+ *                 id:
+ *                   type: string
+ *                   example: "course123"
+ *                 imageUrl:
+ *                   type: string
+ *                   example: "/assets/images/courses/course123/image.jpg"
+ *                 isPublished:
+ *                   type: boolean
+ *                   example: true
+ *                 price:
+ *                   type: number
+ *                   example: 100
+ *                 title:
+ *                   type: string
+ *                   example: "Course Title"
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2024-12-26T12:34:56Z"
+ *                 userId:
+ *                   type: string
+ *                   example: "user123"
+ *       400:
+ *         description: Missing courseId in the request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Missing courseId"
+ *       401:
+ *         description: Unauthorized, invalid or missing JWT token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       404:
+ *         description: Course not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Course not found"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Internal Server Error"
+
  */
