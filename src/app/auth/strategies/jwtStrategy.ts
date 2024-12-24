@@ -18,10 +18,13 @@ const options: StrategyOptions = {
 export const configurePassport = (passport: PassportStatic) => {
   passport.use(
     new JwtStrategy(options, async (payload, done) => {
+      console.log("JWT Payload:", payload);
       try {
         const user = await prisma.user.findUnique({
           where: { id: payload.id },
+          // select: { id: true, role: true },
         });
+        console.log("User found:", user);
         if (!user) return done(null, false);
         return done(null, user);
       } catch (error) {

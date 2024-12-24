@@ -3,7 +3,6 @@ import { getDashboardCoursesService } from "./dashboardService";
 
 export const getDashboardCourses = async (req: Request, res: Response) => {
   try {
-    // const userId = req.user?.id; // Assuming JWT-based auth
     const user: any = req.user;
     const userId = user?.id;
     if (!userId) {

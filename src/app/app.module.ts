@@ -44,7 +44,8 @@ import { checkoutCourse } from "./checkout/checkoutController";
 import { stripeWebhook } from "./checkout/stripeWebhook";
 import { updateProgress } from "./progress/progressController";
 import { getDashboardCourses } from "./dashboard/dashboardController";
-
+import { authorizeRole } from "./auth/strategies/authorizeRole";
+// authorizeRole("TEACHER"),
 const appRouter = express.Router();
 appRouter.get("/", getHelloHandler);
 
@@ -56,11 +57,12 @@ appRouter.post(
 
 appRouter.post("/register", registerHandler);
 appRouter.post("/login", loginHandler);
-appRouter.get("/auth/user/:id", getUserById);
+
 appRouter.put("/auth/user", updateUserController);
 
 appRouter.get("/auth/activate/:token", activateAccountHandler);
 appRouter.use(passport.authenticate("jwt", { session: false }));
+appRouter.get("/auth/user/:id", getUserById);
 appRouter.get("/dashboard/courses", getDashboardCourses);
 appRouter.get("/categories-and-courses", getCategoriesAndCourses);
 appRouter.post("/courses", createCourseHandler);

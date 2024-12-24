@@ -1,9 +1,11 @@
+@bearer = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2NmMDUzY2UyNzhhZDM5MTg2M2NiYSIsIm5hbWUiOiJUZWFjaGVyIiwiZW1haWxWZXJpZmllZCI6dHJ1ZSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVzZXJUeXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJURUFDSEVSIiwiaWF0IjoxNzM1MDYyNjE3LCJleHAiOjE3MzU2Njc0MTd9.qIq660bLQaDoNG7AF_YSngVLbiYkSoYe4t2A9GW0E34
+@APIURL = http://localhost:8003/
 ### Root 
-GET http://localhost:8003/
+GET {{APIURL}}
 Content-Type: application/json
 
 ### Register User
-POST http://localhost:8003/register
+POST {{APIURL}}register
 Content-Type: application/json
 
 {
@@ -12,10 +14,52 @@ Content-Type: application/json
 }
 
 ### Login User
-POST http://localhost:8003/login
+POST {{APIURL}}login
 Content-Type: application/json
 
 {
   "email": "test@gmail.com",
   "password": "Hello123"
 }
+
+### Get User By Id
+GET {{APIURL}}auth/user/673cf1fdce278ad391863cbf
+User-Agent: PostmanRuntime/7.31.1
+Content-Type: application/json
+Authorization: Bearer {{bearer}}
+
+### Activate User
+@token=your_test_token_here  
+GET {{APIURL}}auth/activate/{{token}}  
+Content-Type: application/json  
+Authorization:Bearer {{bearer}}
+
+### Get Dashboard Courses
+GET {{APIURL}}dashboard/courses
+Authorization: Bearer {{bearer}}
+Content-Type: application/json
+
+
+### Get Categories and Courses 
+GET {{APIURL}}categories-and-courses
+Authorization: Bearer {{bearer}}
+Content-Type: application/json
+
+### Create a new course
+POST {{APIURL}}courses
+Content-Type: application/json
+Authorization: Bearer {{bearer}}
+
+{
+  "title": "Introduction to Programming",
+  "description": "A beginner-friendly course on programming basics.",
+  "price": 40,
+  "imageUrl": "/assets/images/courses/course1.jpg",
+  "isPublished": true,
+  "categoryId": "1234567890abcdef"
+}
+
+### Get Courses (Authenticated)
+GET {{APIURL}}courses
+Authorization: Bearer {{bearer}}
+Content-Type: application/json
