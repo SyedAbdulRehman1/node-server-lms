@@ -1,4 +1,6 @@
-@bearer = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2NmMDUzY2UyNzhhZDM5MTg2M2NiYSIsIm5hbWUiOiJUZWFjaGVyIiwiZW1haWxWZXJpZmllZCI6dHJ1ZSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVzZXJUeXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJURUFDSEVSIiwiaWF0IjoxNzM1MDYyNjE3LCJleHAiOjE3MzU2Njc0MTd9.qIq660bLQaDoNG7AF_YSngVLbiYkSoYe4t2A9GW0E34
+@bearer = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2NmMDUzY2UyNzhhZDM5MTg2M2NiYSIsIm5hbWUiOiJUZWFjaGVyIiwiZW1haWxWZXJpZmllZCI6dHJ1ZSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVzZXJUeXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJURUFDSEVSIiwiaWF0IjoxNzM1NzY0NzY4LCJleHAiOjE3MzYzNjk1Njh9.IKCGA-vdA0hJiaNsnb4glq2SirEGIFjAGWweh6mWqQE
+@courseId = 676b10464230fbc9720cf7ed
+@chapterId = 676d1aabf1f3420988b583b7
 @APIURL = http://localhost:8003/
 ### Root 
 GET {{APIURL}}
@@ -65,5 +67,33 @@ Authorization: Bearer {{bearer}}
 Content-Type: application/json
 
 ### Get Course Details using CourseId 
-GET {{APIURL}}courses/67540fa1a7fb2bb95e96083e
+GET {{APIURL}}courses/{{courseId}}
 Authorization: Bearer {{bearer}}
+
+### Get course with progress
+GET {{APIURL}}courses/course-with-progress/{{courseId}}
+Authorization: Bearer {{bearer}}
+Content-Type: application/json
+
+
+### Get Unique Course
+GET {{APIURL}}courses/courseUnique/{{courseId}}
+Authorization: Bearer {{bearer}}
+Content-Type: application/json
+
+
+### Get Chapter by Course ID and Chapter ID
+GET {{APIURL}}chapters/{{courseId}}/chapters/{{chapterId}}
+Authorization: Bearer {{bearer}}
+Content-Type: application/json
+
+
+### Get a Chapter
+GET {{APIURL}}{{courseId}}/chapters/{{chapterId}} 
+Content-Type: application/json
+Authorization: Bearer {{bearer}}
+
+### Fetch Chapter Data with Query Parameters
+GET {{APIURL}}chapters/get-chapter?courseId={{courseId}}&chapterId={{chapterId}} 
+Authorization: Bearer {{bearer}}
+Content-Type: application/json

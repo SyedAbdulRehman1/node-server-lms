@@ -358,3 +358,217 @@
  *                   example: "Internal Server Error"
 
  */
+
+// get-course-with-progress
+/**
+ * @swagger
+ * /courses/course-with-progress/{courseId}:
+ *   get:
+ *     summary: Get Course with Progress
+ *     description: Fetch a course along with its progress for the logged-in user. Requires a valid JWT token.
+ *     tags:
+ *       - Courses
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: courseId
+ *         required: true
+ *         description: The ID of the course to fetch.
+ *         schema:
+ *           type: string
+ *           default: "67540fa1a7fb2bb95e96083e"  # Example default course ID
+ *     responses:
+ *       200:
+ *         description: Successfully fetched course and progress details.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 course:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                     userId:
+ *                       type: string
+ *                     title:
+ *                       type: string
+ *                     description:
+ *                       type: string
+ *                     imageUrl:
+ *                       type: string
+ *                     price:
+ *                       type: number
+ *                     isPublished:
+ *                       type: boolean
+ *                     categoryId:
+ *                       type: string
+ *                       nullable: true
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                     chapters:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                           title:
+ *                             type: string
+ *                           description:
+ *                             type: string
+ *                           videoUrl:
+ *                             type: string
+ *                           position:
+ *                             type: number
+ *                           isPublished:
+ *                             type: boolean
+ *                           isFree:
+ *                             type: boolean
+ *                           courseId:
+ *                             type: string
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                           updatedAt:
+ *                             type: string
+ *                             format: date-time
+ *                           userProgress:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                 progressCount:
+ *                   type: number
+ *       401:
+ *         description: Unauthorized. Token missing or invalid.
+ *       500:
+ *         description: Internal Server Error.
+ */
+
+// ### Get Unique Course
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *
+ * tags:
+ *   - name: Courses
+ *     description: Operations related to courses
+ *
+ * /courses/courseUnique/{courseId}:
+ *   get:
+ *     summary: Get a unique course by ID
+ *     description: Fetch details of a specific course using its ID. Requires a valid JWT token.
+ *     tags: [Courses]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - name: courseId
+ *         in: path
+ *         required: true
+ *         description: ID of the course to retrieve
+ *         schema:
+ *           type: string
+ *           example: 67540fa1a7fb2bb95e96083e
+ *     responses:
+ *       200:
+ *         description: Successfully fetched the course details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: 67540fa1a7fb2bb95e96083e
+ *                     userId:
+ *                       type: string
+ *                       example: 673cf053ce278ad391863cba
+ *                     title:
+ *                       type: string
+ *                       example: Cloud computing
+ *                     description:
+ *                       type: string
+ *                       example: >
+ *                         With a focus on flexibility and accessibility, our system supports a range of educational needs...
+ *                     imageUrl:
+ *                       type: string
+ *                       example: https://res.cloudinary.com/example/image/upload/v1234567890/courses/example.jpg
+ *                     price:
+ *                       type: number
+ *                       example: 1
+ *                     isPublished:
+ *                       type: boolean
+ *                       example: true
+ *                     categoryId:
+ *                       type: string
+ *                       nullable: true
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2024-12-07T09:04:33.644Z
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2024-12-22T09:33:10.470Z
+ *                     chapters:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             example: 6755d5d34bef97e9fd17e74d
+ *                           title:
+ *                             type: string
+ *                             example: Introduction to cloud computing
+ *                           description:
+ *                             type: string
+ *                             example: "<p><strong>description</strong></p>"
+ *                           videoUrl:
+ *                             type: string
+ *                             example: https://utfs.io/f/hyr6cBzJvRV8JpwGYmvGSBi4xfuegNpTWwnYHl1stFmIkZdc
+ *                           position:
+ *                             type: integer
+ *                             example: 1
+ *                           isPublished:
+ *                             type: boolean
+ *                             example: true
+ *                           isFree:
+ *                             type: boolean
+ *                             example: true
+ *                           courseId:
+ *                             type: string
+ *                             example: 67540fa1a7fb2bb95e96083e
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: 2024-12-08T17:22:27.442Z
+ *                           updatedAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: 2024-12-09T19:18:39.040Z
+ *       401:
+ *         description: Unauthorized - User is not authenticated
+ *       400:
+ *         description: Bad Request - Missing courseId
+ *       500:
+ *         description: Internal Server Error
+ */

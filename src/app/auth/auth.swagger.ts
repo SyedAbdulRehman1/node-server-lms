@@ -66,7 +66,7 @@
  *       type: http  
  *       scheme: bearer  
  *       bearerFormat: JWT  # Optional: JWT format
- *       description: "Enter your JWT token here. You can use the 'Authorize' button to add the token.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2NmMDUzY2UyNzhhZDM5MTg2M2NiYSIsIm5hbWUiOiJUZWFjaGVyIiwiZW1haWxWZXJpZmllZCI6dHJ1ZSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVzZXJUeXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJURUFDSEVSIiwiaWF0IjoxNzM1MDYyNjE3LCJleHAiOjE3MzU2Njc0MTd9.qIq660bLQaDoNG7AF_YSngVLbiYkSoYe4t2A9GW0E34"  
+ *       description: "Enter your JWT token here. You can use the 'Authorize' button to add the token.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2NmMDUzY2UyNzhhZDM5MTg2M2NiYSIsIm5hbWUiOiJUZWFjaGVyIiwiZW1haWxWZXJpZmllZCI6dHJ1ZSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVzZXJUeXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJURUFDSEVSIiwiaWF0IjoxNzM1NzY0NzY4LCJleHAiOjE3MzYzNjk1Njh9.IKCGA-vdA0hJiaNsnb4glq2SirEGIFjAGWweh6mWqQE"  
 
  *  
  * security:  

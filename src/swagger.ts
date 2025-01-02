@@ -5,7 +5,7 @@ const options = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "Your API Name",
+      title: "LMS API",
       version: "1.0.0",
       description: "LMS API DOCS",
     },
@@ -36,6 +36,7 @@ const options = {
     "./src/app/dashboard/dashboard.swagger.ts",
     "./src/app/categories/categories-and-courses.swagger.ts",
     "./src/app/courses/courses.swagger.ts",
+    "./src/app/chapters/chapter.swagger.ts",
   ],
   // apis: [
   // path.join(__dirname, "./src/app/auth/auth.swagger.ts"), // Include your Swagger files here
