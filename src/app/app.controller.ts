@@ -3,5 +3,5 @@ import { getHello } from "./app.service";
 
 export const getHelloHandler = (req: Request, res: Response): void => {
   const message = getHello();
-  res.send(message);
+  res.send("/");
 };
