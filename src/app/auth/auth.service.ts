@@ -42,6 +42,7 @@ export class AuthService {
         password: hashedPassword,
         resetToken: token,
         resetTokenExpiry: tokenExpiration,
+        emailVerified:true,
       },
     });
 
